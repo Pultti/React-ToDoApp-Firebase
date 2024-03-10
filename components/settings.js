@@ -1,20 +1,26 @@
 import React from 'react';
 import { View, Button, StyleSheet, Alert } from 'react-native';
 import { auth } from '../firebase/Config'; // Adjust the path as necessary
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const STORAGE_KEY = '@todo_items';
 
 export default function Settings({ navigation }) {
-  const handleDeleteUser = async () => {
-    try {
-      if (auth.currentUser) {
-        await auth.currentUser.delete();
-        Alert.alert("Account Deleted", "Your account has been successfully deleted.");
-        navigation.navigate('Login'); // Navigate back to the login screen or wherever makes sense for your app
-      }
-    } catch (error) {
-      console.error(error);
-      Alert.alert("Error", "Failed to delete the user account.");
-    }
-  };
+
+    const handleDeleteUser = async () => {
+        try {
+          if (auth.currentUser) {
+            const userSpecificStorageKey = `${STORAGE_KEY}_${auth.currentUser.uid}`;
+            await AsyncStorage.removeItem(userSpecificStorageKey); // Clear user-specific data
+            await auth.currentUser.delete();
+            Alert.alert("Account Deleted", "Your account has been successfully deleted.");
+            navigation.navigate('Login'); // Navigate back to the login screen
+          }
+        } catch (error) {
+          console.error(error);
+          Alert.alert("Error", "Failed to delete the user account.");
+        }
+      };
 
   const handleLogout = async () => {
     try {
