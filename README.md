@@ -2,6 +2,16 @@ Usage Guidelines
 
 Hello and thanks for your interest in this repository! I encourage you to fork this repository rather than cloning it directly. Forking allows for better tracking of changes and collaboration. Your understanding and cooperation are much appreciated!
 
+*To Do App*
+Link to the app trailer - https://www.youtube.com/watch?v=IkISV0GGR3s
+
+This is a React native application made for android.
+It utilizes Firestore authentication, phones local memory and BoredApi. 
+BoredApi is used to fetch messages to give user some break activities after completing task.
+
+What the app does it will store privately users tasks, and it will manage the time of the task. One task takes 1 hour on default and if there are too many tasks it will notify the user. 
+User can choose when he wants to attack the created list, Morning, day, evening or use full day for it. User can also prioritize tasks and choose how much time he needs for it.
+Settings page is created for the user to logout and delete the account and data linked to the account.
 
 *Note for lecturer or students who grade this*
 How to run this in your environment.
