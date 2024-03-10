@@ -17,19 +17,20 @@ Settings page is created for the user to logout and delete the account and data 
 How to run this in your environment.
 
 1. Install Visual studio code.
-2. Open the project
-3. Run in Vs code terminal - Npm install
-4. Build .env file to root -
-     FIREBASE_API_KEY= xxx
-     FIREBASE_AUTH_DOMAIN= xxx
-     FIREBASE_PROJECT_ID= xxx
-     FIREBASE_STORAGE_BUCKET= xxx
-     FIREBASE_MESSAGING_SENDER_ID= xxx
-     FIREBASE_APP_ID= xxx
-5. Build firebase project, Cloud firestore and authentication (Email/password)
-6. Paste the code you get from configing cloud firestore to .env file
-7. Use your phone as a mobile hotspot and connect your computer to it
-8. Run in Vs code terminal - npx expo start
-9. Download Expo go from appstore
-10. Open up Expo go and scan Qr code, which will pop up after npx expo start command.
-11. 
+2. Clone the project
+3. Open the project
+4. Run in Vs code terminal - Npm install
+5. Build .env file to root 
+   FIREBASE_API_KEY= xxx
+   FIREBASE_AUTH_DOMAIN= xxx
+   FIREBASE_PROJECT_ID= xxx
+   FIREBASE_STORAGE_BUCKET= xxx
+   FIREBASE_MESSAGING_SENDER_ID= xxx
+   FIREBASE_APP_ID= xxx
+7. Build firebase project, add <web> app in firebase and add authentication (Email/password)
+8. Paste the code you get from web app to .env file
+9. Use your phone as a mobile hotspot and connect your computer to it
+10. Run in Vs code terminal - npx expo start
+11. Download Expo go from playstore
+12. Open up Expo go and scan Qr code, which will pop up after npx expo start command.
+13. 
