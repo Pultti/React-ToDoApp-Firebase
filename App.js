@@ -1,87 +1,65 @@
 import React, { useState, useEffect } from 'react';
-import { FlatList, SafeAreaView, StyleSheet, View } from 'react-native';
-import Row from './components/Row';
+import { SafeAreaView, StyleSheet, TouchableOpacity } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import AddItemForm from './components/add';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import TodoApp from './components/toDoApp'; // Adjust path as necessary
+import ManageDay from './components/manageDay'; // Adjust path as necessary
+import Login from './components/login';
+import Settings from './components/settings';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { auth } from './firebase/Config';
 
-import TodoItem from './components/toDoItem';
+const Stack = createNativeStackNavigator();
 
-
-const STORAGE_KEY = '@persons_key';
-
-const getData = async () => {
-  try {
-    const jsonValue = await AsyncStorage.getItem(STORAGE_KEY);
-    return jsonValue != null ? JSON.parse(jsonValue) : [];
-  } catch (ex) {
-    console.error(ex);
-  }
-};
-
-export default function App() {
-  const [filteredData, setFilteredData] = useState([]);
-  const [selectedId, setSelectedId] = useState(null);
-  const [items, setItems] = useState([]);
-
- //useEffect(() => {
-           //setFilteredData(items); // Use items state instead of DATA
-    //AsyncStorage.clear()  // Use this to clear the storage
-   // getData()
-  //}, []); // items // Add items to the dependency array 
+const App = () => {
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const fetchItems = async () => {
-      const storedItems = await getData();
-      if (storedItems && storedItems.length > 0) {
-        setItems(storedItems);
-        setFilteredData(storedItems);
-      }
-    };
-
-    fetchItems();
+    const unsubscribe = auth.onAuthStateChanged(setUser);
+    return unsubscribe;
   }, []);
-
-
-  const handleSelect = (id) => {
-    setSelectedId(id);
-  };
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.bigBox}>
-      
-        <AddItemForm items={items} setItems={setItems} />
-        <FlatList
-          data={filteredData}
-          keyExtractor={item => item.id ? item.id.toString() : Math.random().toString()}
-          renderItem={({ item }) => (
-            <Row 
-              item={item} 
-              selectedId={selectedId}
-              onSelect={handleSelect}
-            />
-          )}
-          extraData={items} // to trigger re-render when 'items' changes
-        />
-      </View>
       <StatusBar style="auto" />
+      <NavigationContainer>
+        <Stack.Navigator>
+          {user ? (
+            <>
+             <Stack.Screen
+                name="TodoApp"
+                component={TodoApp}
+                options={({ navigation }) => ({
+                  headerTitle: user ? `You got this: ${
+                    user.email.split('@')[0].slice(0, 8)
+                  }...` : 'Tasks to do',
+                  headerRight: () => (
+                    <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
+                      <Icon name="gear" size={24} color="black" style={{ marginRight: 15 }} />
+                    </TouchableOpacity>
+                  ),
+                })}
+              />
+              <Stack.Screen name="Settings" component={Settings} />
+              <Stack.Screen name="manageDay" component={ManageDay} options={{ title: 'Showcasing tasks' }} />
+            </>
+          ) : (
+            <Stack.Screen name="Login" options={{ headerShown: false }}>
+              {props => <Login {...props} onLoginSuccess={setUser} />}
+            </Stack.Screen>
+          )}
+        </Stack.Navigator>
+      </NavigationContainer>
     </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: StatusBar.currentHeight || 0,
   },
-  bigBox: {
-    marginTop: 50,
-    flex: 1,
-    borderRadius: 10,
-    backgroundColor: '#fff',
-    padding: 10,
-    margin: 10,
-  },
-  // ... any other styles you have
 });
+
+export default App;
