@@ -22,12 +22,12 @@ How to run this in your environment.
 4. Run in Vs code terminal - Npm install
 5. Build .env file to root
 
-FIREBASE_API_KEY= xxx
-FIREBASE_AUTH_DOMAIN= xxx
-FIREBASE_PROJECT_ID= xxx
-FIREBASE_STORAGE_BUCKET= xxx
-FIREBASE_MESSAGING_SENDER_ID= xxx
-FIREBASE_APP_ID= xxx
+FIREBASE_API_KEY= xxx  
+FIREBASE_AUTH_DOMAIN= xxx  
+FIREBASE_PROJECT_ID= xxx  
+FIREBASE_STORAGE_BUCKET= xxx  
+FIREBASE_MESSAGING_SENDER_ID= xxx  
+FIREBASE_APP_ID= xxx 
    
 7. Build firebase project, add <web> app in firebase and add authentication (Email/password)
 8. Paste the code you get from web app to .env file
