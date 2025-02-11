@@ -16,7 +16,7 @@ Settings page is created for the user to logout and delete the account and data 
 *Note for lecturer or students who grade this*
 How to run this in your environment.
 
-1. Install Visual studio code.
+1. Install Visual studio code and node lts.
 2. Clone the project
 3. Open the project
 4. Run in Vs code terminal - Npm install
@@ -30,7 +30,7 @@ FIREBASE_MESSAGING_SENDER_ID= xxx
 FIREBASE_APP_ID= xxx 
    
 7. Build firebase project, add <web> app in firebase and add authentication (Email/password)
-8. Paste the code you get from web app to .env file
+8. Paste the code you get from firebase to .env file
 9. Use your phone as a mobile hotspot and connect your computer to it
 10. Run in Vs code terminal - npx expo start
 11. Download Expo go from playstore
